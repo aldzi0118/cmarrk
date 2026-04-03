@@ -1,0 +1,9 @@
+header, section, footer{
+    width: 100%;
+}
+
+.main_text{
+  text-align: center;
+  padding: 130px 0 40px;
+  font-size: clamp(35px, 2vw, 42px);
+}

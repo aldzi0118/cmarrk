@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: #1A1A1A;
+}
+
+img{
+    display: block;
+    border: 0;
+    object-fit: cover;
+}
+
+body{
+    font-family: "Noto Sans KR", sans-serif;
+    color: #1A1A1A;
+}
+
+html{
+    font-size: 16px;
+}
+
+
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}

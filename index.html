@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>씨마크호텔 리뉴얼</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+    const menuBtn = document.querySelector(".menu_btn");
+    const menu = document.querySelector(".menu"); // 상단 ROOMS/DINING... UL
+    const megaMenu = document.getElementById("megaMenu");
+
+    function toggleMegaMenu(){
+    megaMenu.classList.toggle("is-open");
+    megaMenu.setAttribute("aria-hidden", !megaMenu.classList.contains("is-open"));
+    }
+
+    if (menu) {
+    menu.addEventListener("click", toggleMegaMenu);
+    }
+
+    if (menuBtn) {
+    menuBtn.addEventListener("click", toggleMegaMenu);
+    }
+
+    document.addEventListener("click", (e) => {
+    const isInsideHeader = e.target.closest("header");
+    const isInsideMega = e.target.closest(".mega_menu");
+    if (!isInsideHeader && !isInsideMega) {
+        megaMenu.classList.remove("is-open");
+        megaMenu.setAttribute("aria-hidden", "true");
+    }
+    });
+
+    document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        megaMenu.classList.remove("is-open");
+        megaMenu.setAttribute("aria-hidden", "true");
+    }
+    });
+
+    let sec2Swiper;
+
+    function initSec2Swiper() {
+        if (window.innerWidth <= 1230) {
+        if (!sec2Swiper) {
+            sec2Swiper = new Swiper(".sec2Swiper", {
+            slidesPerView: 2.2,
+            spaceBetween: 30,
+            breakpoints: {
+                0:   { slidesPerView: 1,   spaceBetween: 10 },
+                851: { slidesPerView: 1.5, spaceBetween: 5 },
+            },
+
+            freeMode: true,
+            freeModeMomentum: false,
+            scrollbar: { el: ".sec2-scrollbar", draggable: true },
+
+            preventClicks: true,
+            preventClicksPropagation: true,
+            });
+        } else {
+            sec2Swiper.update();
+        }
+        } else {
+        if (sec2Swiper) {
+            sec2Swiper.destroy(true, true);
+            sec2Swiper = undefined;
+        }
+        }
+    }
+
+    let sec3Swiper;
+
+    function initSec3Swiper() {
+        if (!sec3Swiper) {
+        sec3Swiper = new Swiper(".sec3Swiper", {
+            spaceBetween: 30,
+            freeMode: false,
+            scrollbar: { el: ".sec3-scrollbar", draggable: true },
+
+            autoplay: { delay: 2500, disableOnInteraction: false },
+            speed: 500,
+            loop: true,
+
+            slidesPerView: 3.2,
+            breakpoints: {
+            0:    { slidesPerView: 1.2, spaceBetween: 16 },
+            900:  { slidesPerView: 2.1, spaceBetween: 16 },
+            1024: { slidesPerView: 2.1, spaceBetween: 16 },
+            1140: { slidesPerView: 2.2, spaceBetween: 20 },
+            1231: { slidesPerView: 2.5, spaceBetween: 30 },
+            1520: { slidesPerView: 3.1, spaceBetween: 30 },
+            1600: { slidesPerView: 3.3, spaceBetween: 30 },
+            },
+        });
+
+        const sec3El = document.querySelector(".sec3Swiper");
+        if (sec3El) {
+            sec3El.addEventListener("mouseenter", () => sec3Swiper.autoplay.stop());
+            sec3El.addEventListener("mouseleave", () => sec3Swiper.autoplay.start());
+        }
+        } else {
+        sec3Swiper.update();
+        }
+    }
+
+    let sec4Swiper;
+
+    function initSec4Swiper() {
+        if (window.innerWidth <= 1230) {
+        if (!sec4Swiper) {
+            sec4Swiper = new Swiper(".sec4Swiper", {
+            spaceBetween: 20,
+            slidesPerView: 1.2,
+            scrollbar: { el: ".sec4-scrollbar", draggable: true },
+            breakpoints: {
+                0:   { slidesPerView: 1,   spaceBetween: 20 },
+                500: { slidesPerView: 1,   spaceBetween: 20 },
+                700: { slidesPerView: 1.5, spaceBetween: 20 },
+                850: { slidesPerView: 1.8, spaceBetween: 20 },
+            },
+            });
+        } else {
+            sec4Swiper.update();
+        }
+        } else {
+        if (sec4Swiper) {
+            sec4Swiper.destroy(true, true);
+            sec4Swiper = undefined;
+        }
+        }
+    }
+
+    let sec5Swiper;
+
+    function initSec5Swiper() {
+    if (!sec5Swiper) {
+        sec5Swiper = new Swiper(".sec5Swiper", {
+        loop: true,
+
+        centeredSlides: true,
+        centeredSlidesBounds: true,
+        watchOverflow: true,
+
+        slidesPerView: 4.4,
+        spaceBetween: 18,
+
+        speed: 7000,
+        freeMode: true,
+        freeModeMomentum: false,
+        autoplay: {
+            delay: 0,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: false,
+        },
+
+        breakpoints: {
+            0:   { slidesPerView: 2.0, spaceBetween: 10, centeredSlides: true, centeredSlidesBounds: true },
+            500: { slidesPerView: 2.5, spaceBetween: 10, centeredSlides: true, centeredSlidesBounds: true },
+            790: { slidesPerView: 2.8, spaceBetween: 15, centeredSlides: true, centeredSlidesBounds: true },
+            880: { slidesPerView: 3.0, spaceBetween: 15, centeredSlides: true, centeredSlidesBounds: true },
+            1000: { slidesPerView: 3.5, spaceBetween: 15, centeredSlides: true, centeredSlidesBounds: true },
+            1095: { slidesPerView: 3.8, spaceBetween: 18, centeredSlides: true, centeredSlidesBounds: true },
+            1231: { slidesPerView: 4.0, spaceBetween: 18, centeredSlides: true, centeredSlidesBounds: true },
+            1380: { slidesPerView: 4.5, spaceBetween: 20, centeredSlides: true, centeredSlidesBounds: true },
+            1879: { slidesPerView: 4.8, spaceBetween: 20, centeredSlides: true, centeredSlidesBounds: true },
+        },
+        });
+    } else {
+        sec5Swiper.update();
+    }
+    }
+
+    initSec2Swiper();
+    initSec3Swiper();
+    initSec4Swiper();
+    initSec5Swiper();
+
+    window.addEventListener("resize", function () {
+        initSec2Swiper();
+        initSec3Swiper();
+        initSec4Swiper();
+        initSec5Swiper();
+    });
+
+});
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="logo">
+        </div>
+
+        <ul class="menu">
+            <li>ROOMS</li>
+            <li>DINING</li>
+            <li>EXPERIENCE</li>
+            <li>OFFERS</li>
+            <li>ABOUT</li>
+        </ul>
+
+        <div class="menu_btn">
+            <img src="img/ham_btn.png" alt="">
+        </div>
+    </header>
+
+    <section class="sec_1">
+        <video autoplay muted loop playsinline class="video_bg">
+            <source src="video/main_video.mp4" type="video/mp4">
+        </video>
+        
+        <video autoplay muted loop playsinline class="mo_video_bg">
+            <source src="video/mo_main.mp4" type="video/mp4">
+        </video>
+    </section>
+            <div class="booking_bar">
+            <ul class="booking_list">
+                <li>
+                    <h2>체크인</h2>
+                    <p>기간을 선택해주세요</p>
+                </li>
+                <li>
+                    <h2>체크아웃</h2>
+                    <p>기간을 선택해주세요</p>
+                </li>
+                <li>
+                    <h2>인원</h2>
+                    <div class="select_group">
+                        <div>객실 수 <span class="num">1</span> <img src="img/small_arrow.png" alt=""></div>
+                        <div>성인 <span class="num">1</span> <img src="img/small_arrow.png" alt=""></div>
+                        <div>어린이 <span class="num">0</span> <img src="img/small_arrow.png" alt=""></div>
+                    </div>
+                </li>
+                <li>
+                    <h2>프로모션 코드</h2>
+                    <p>프로모션 코드를 입력해주세요</p>
+                </li>
+            </ul>
+            <button class="search_btn">
+                <img src="img/Search.png" alt="검색">
+            </button>
+        </div>
+
+    <section class="sec_2">
+    <h1 class="main main_text">Special Offers</h1>
+
+    <div class="sec_2_card swiper sec2Swiper">
+        <div class="swiper-wrapper">
+
+            <div class="sec_2_box swiper-slide">
+                <div class="sec_2_img">
+                <img src="img/family.jpg" alt="">
+                </div>
+                <div class="sec_2_text">
+                <p>4인을 위한 완벽한 가족 휴식</p>
+                <h3>
+                    사랑하는 사람들과 함께하는 시간,<br>
+                    4인을 위한 넉넉한 구성과 특별한 혜택을 담았습니다.
+                </h3>
+                <h4>2026.01.01 - 2026.12.31</h4>
+                <div class="sec_2_price"><span>￦</span> 440,000 ~</div>
+                </div>
+            </div>
+
+            <div class="sec_2_box swiper-slide">
+                <div class="sec_2_img">
+                <img src="img/sleep.jpg" alt="">
+                </div>
+                <div class="sec_2_text">
+                <p>가장 아름다운 휴식, 가장 깊은 잠</p>
+                <h3>
+                    일상에서 벗어나 오롯이 쉼에 집중하는 시간<br>
+                    프리미엄 침구와 여유로운 일정으로
+                    완성하는 숙면의 가치
+                </h3>
+                <h4>2026.01.01 - 2026.12.31</h4>
+                <div class="sec_2_price"><span>￦</span> 580,000 ~</div>
+                </div>
+            </div>
+
+            <div class="sec_2_box swiper-slide">
+                <div class="sec_2_img">
+                <img src="img/all.jpg" alt="">
+                </div>
+                <div class="sec_2_text">
+                <p>모든 순간이 완성되는 올인원 스테이</p>
+                <h3>
+                    숙박부터 다이닝, 레저까지<br>
+                    추가 고민 없이 온전히 즐기는 프리미엄 경험
+                </h3>
+                <h4>2026.01.01 - 2026.12.31</h4>
+                <div class="sec_2_price"><span>￦</span> 650,000 ~</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="swiper-scrollbar sec2-scrollbar"></div>
+    </div>
+
+    <a href="#" class="sec2_more_btn">VIEW MORE</a>
+    </section>
+
+    <section class="sec_3">
+        <h1 class="main_text">“바다 위에 머무는 가장 완벽한 하루”</h1>
+        <p class="sub_text">동해의 수평선과 함께 시작되는 프라이빗 스테이</p>
+
+        <div class="sec_3_card swiper sec3Swiper">
+            <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="img/visual01.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/visual03.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/visual05.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/corner02.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/ondol02.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/presidential03.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/grand_ballroom01.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/theshop03.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/wedding_01.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/the_pool02.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/visual04.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/visual02.jpg" alt=""></div>
+            <div class="swiper-slide"><img src="img/kidCamp01.jpg" alt=""></div>
+            </div>
+
+            <div class="swiper-scrollbar sec3-scrollbar"></div>
+        </div>
+    </section>
+
+    <section class="sec_4">
+        <h1 class="main_text">Services & Facilities</h1>
+
+        <div class="sec_4_card swiper sec4Swiper">
+            <div class="swiper-wrapper">
+
+            <a href="#" class="sec_4_box swiper-slide">
+                <div class="sec_4_img">
+                    <img src="img/merry.jpg" alt="">
+                        <div class="sec_4_overlay">
+                            <p>Wedding</p>
+                            <h3>웨딩</h3>
+                        </div>
+                </div>
+            </a>
+
+            <a href="#" class="sec_4_box swiper-slide">
+                <div class="sec_4_img">
+                    <img src="img/Leisure.jpg" alt="">
+                        <div class="sec_4_overlay">
+                            <p>Leisure</p>
+                            <h3>레저</h3>
+                        </div>
+                </div>
+            </a>
+
+            <a href="#" class="sec_4_box swiper-slide">
+                <div class="sec_4_img">
+                    <img src="img/Facilities.jpg" alt="">
+                        <div class="sec_4_overlay">
+                            <p>Facilities</p>
+                            <h3>시설</h3>
+                        </div>
+                </div>
+            </a>
+
+            </div>
+
+            <div class="swiper-scrollbar sec4-scrollbar"></div>
+        </div>
+    </section>
+
+    <section class="sec_5">
+        <div class="sec5_inner">
+            <h1 class="main_text">Instagram</h1>
+
+            <div class="sec5Swiper swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="img/insta1.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta2.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta3.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta4.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta5.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta6.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta8.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta9.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta10.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta11.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta12.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta13.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta14.jpg" alt=""></div>
+                    <div class="swiper-slide"><img src="img/insta15.jpg" alt=""></div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+    <div class="footer_inner">
+
+        <div class="footer_top">
+        <img src="img/logo.png" alt="logo" class="footer_logo">
+
+        <div class="footer_right">
+            <img src="img/mark.png" alt="award">
+        </div>
+        </div>
+
+        <div class="footer_text">
+
+        <div class="footer_pc">
+            <p>씨마크호텔 ㅣ 강원특별자치도 강릉시 해안로 406번길 2 TEL : 033-650-7000 ㅣ 단체 행사문의 : 02 746 7488</p>
+            <p>FAX : 033-650-7100 ㅣ E-mail : RESCOM@SEAMARQHOTEL.COM</p>
+            <p>사업자 등록번호 620-81-00012 ㅣ 통신판매번호 2016-강원강릉-0246호 ㅣ 대표이사 김성준</p>
+        </div>
+
+        <div class="footer_mo">
+            <p>씨마크호텔</p>
+            <p>강원특별자치도 강릉시 해안로 406번길 2</p>
+            <p>TEL : 033-650-7000</p>
+            <p>단체 행사문의 : 02 746 7488</p>
+            <p>FAX : 033-650-7100</p>
+            <p>E-mail : RESCOM@SEAMARQHOTEL.COM</p>
+            <p>사업자 등록번호 620-81-00012</p>
+            <p>통신판매번호 2016-강원강릉-0246호</p>
+            <p>대표이사 김성준</p>
+        </div>
+
+        <p class="copyright">© 2015 Hotel SEAMARQ All Rights Reserved.</p>
+        </div>
+
+    </div>
+    </footer>
+    
+</body>
+</html>
